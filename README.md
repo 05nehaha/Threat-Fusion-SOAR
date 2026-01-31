@@ -1,154 +1,62 @@
-🚨 Threat Fusion Orchestration
-A Cybersecurity Major Project
-📌 Project Overview
+# 🛡️ Threat-Fusion SOAR
+**Automated Vulnerability Assessment & Reporting Engine**
 
-Threat Fusion Orchestration is a cybersecurity-focused project designed to collect, correlate, analyze, and orchestrate responses to security threats from multiple sources.
-The project follows SOAR (Security Orchestration, Automation, and Response) principles to improve incident detection, reduce response time, and enhance overall security posture.
+## 🚀 Overview
+Threat-Fusion SOAR is a comprehensive security tool designed to automate vulnerability detection. It integrates **Nmap (Network Scanning)** and **Nikto (Web Scanning)** into a unified dashboard with real-time PDF reporting and Visual Analytics.
 
-This system demonstrates how modern organizations can automate threat handling instead of relying on manual and fragmented security operations.
+## ⚙️ Prerequisites (READ FIRST)
+Since this tool relies on Linux-native scanners, **Windows users must use WSL (Windows Subsystem for Linux)**.
 
-🎯 Objectives
+### 1. System Requirements
+* **OS:** Ubuntu (via WSL on Windows) or Native Linux/macOS.
+* **Python:** v3.8+
+* **Node.js:** v14+
 
-To aggregate security alerts from multiple sources
+### 2. Install External Tools (Crucial!)
+You must install the actual scanner software inside your Ubuntu terminal before running the python code:
+```bash
+sudo apt update
+sudo apt install nmap nikto -y
 
-To correlate and analyze threats intelligently
+📦 Installation Guide
+Step 1: Clone the Repository
+Bash
+git clone [https://github.com/05nehaha/Threat-Fusion-SOAR.git](https://github.com/05nehaha/Threat-Fusion-SOAR.git)
+cd Threat-Fusion-SOAR
+Step 2: Backend Setup (Python)
+Open a terminal in the project root:
 
-To automate incident response workflows
-
-To reduce Mean Time to Detect (MTTD) and Mean Time to Respond (MTTR)
-
-To demonstrate real-world SOAR concepts for cybersecurity applications
-
-🧩 Key Features
-
-🔐 Centralized threat collection
-
-⚙️ Security orchestration workflows
-
-🤖 Automated response mechanisms
-
-📊 Log analysis and alert correlation
-
-🛡️ Designed with cybersecurity best practices
-
-🔍 Scalable and modular architecture
-
-🏗️ Project Architecture
-
-The project is structured in a modular way to clearly separate responsibilities:
-
-Threat-Fusion/
-│
-├── orchestrator/        # Core orchestration logic
-├── backend/             # Backend services and APIs
-├── frontend/            # User interface (dashboard)
-├── logs/                # Security and system logs
-├── requirements.txt     # Python dependencies
-├── .gitignore           # Ignored files and folders
-└── README.md            # Project documentation
-
-🛠️ Technologies Used
-
-Programming Language: Python
-
-Frameworks / Tools:
-
-FastAPI / Flask (backend services)
-
-Git & GitHub (version control)
-
-Cybersecurity Concepts:
-
-SOAR (Security Orchestration, Automation & Response)
-
-Threat intelligence
-
-Log analysis
-
-Incident response workflows
-
-🚀 Installation & Setup (Kali Linux)
-1️⃣ Clone the Repository
-git clone https://github.com/Avni-foxy/Threat-Fusion.git
-cd Threat-Fusion
-
-2️⃣ Create Virtual Environment
-python3 -m venv venv
-source venv/bin/activate
-
-3️⃣ Install Dependencies
+Bash
+cd backend
+# Install Python dependencies
 pip install -r requirements.txt
 
-4️⃣ Run the Application
-python3 main.py
+# Run the Server
+python3 app.py
+You should see: Running on http://127.0.0.1:5000
 
+Step 3: Frontend Setup (React)
+Open a new terminal window:
 
-(Modify the run command based on your actual entry file)
+Bash
+cd frontend/my-app
+# Install Node dependencies
+npm install
 
-🔐 Security Considerations
+# Start the Dashboard
+npm start
+The app will open at http://localhost:3000
 
-Sensitive files such as .env, credentials, and tokens are excluded using .gitignore
+🛠️ Usage
+Dashboard: Navigate to the "Dashboard" tab to see the scan form.
 
-The project follows secure coding and access control principles
+Launch Scan: Enter a target (e.g., scanme.nmap.org) and click Launch.
 
-Designed to be extended with:
+View Results: Wait for status "Completed", then download the PDF Report or view Visual Analytics.
 
-TLS encryption
+History: Use the "Full History" tab to view past logs or clear the database.
 
-Authentication & authorization
+⚠️ Troubleshooting
+"No Web Server Found": Ensure you are scanning a target visible to WSL. Try scanning scanme.nmap.org.
 
-IDS/IPS integration
-
-Secure API communication
-
-📈 Use Cases
-
-Security Operations Centers (SOC)
-
-Automated incident response
-
-Threat intelligence correlation
-
-Academic and research-based cybersecurity projects
-
-SOAR platform demonstrations
-
-🎓 Academic Relevance
-
-This project is developed as a Cybersecurity Major Project and demonstrates:
-
-Practical implementation of SOAR concepts
-
-Real-world threat handling approaches
-
-Integration of automation in cybersecurity operations
-
-It is suitable for:
-
-Engineering final-year major project
-
-Project viva and demonstrations
-
-Cybersecurity portfolio showcase
-
-🔮 Future Enhancements
-
-Integration with real-time SIEM tools
-
-Machine Learning–based threat detection
-
-Dashboard analytics and visualizations
-
-Secure MQTT / API integrations
-
-Cloud deployment and scalability
-
-👩‍💻 Author
-
-Vaishnavi Nagaraja
-Cyber Security & Cyber Forensics
-GitHub: Avni-foxy
-
-📜 License
-
-This project is intended for educational and academic purposes.
+Database Error: If scans.db causes issues, simply delete the file. The backend will recreate a fresh one automatically on startup.

@@ -1,6 +1,6 @@
 {
     "event_type": "vulnerability_scan",
     "risk_level": "HIGH",
-    "threat_indicators_found": 3,
-    "raw_summary": "[{'port': 80, 'name': 'http', 'product': 'nginx', 'version': '1.19.0', 'state': 'open'}]- Nikto v2.5.0\n---------------------------------------------------------------------------\n+ Target IP:          44.228.249.3\n+ Target Hostname:    testphp.vulnweb.com\n+ Target Port:        80\n+ Start Time:         2026-01-16 10:34:06 (GMT-5)\n---------------------------------------------------------------------------\n+ Server: nginx/1.19.0\n+ /: Retrieved x-powered-by header: PHP/5.6.40-38+ubuntu20.04.1+deb.su"
+    "threat_indicators_found": 2,
+    "raw_summary": "[{'port': 22, 'name': 'ssh', 'product': 'OpenSSH', 'version': '7.4', 'state': 'open'}, {'port': 70, 'name': 'gopher', 'product': '', 'version': '', 'state': 'closed'}, {'port': 80, 'name': 'http', 'product': 'Apache httpd', 'version': '2.4.6', 'state': 'open'}, {'port': 113, 'name': 'ident', 'product': '', 'version': '', 'state': 'closed'}, {'port': 443, 'name': 'http', 'product': 'Apache httpd', 'version': '2.4.6', 'state': 'open'}, {'port': 31337, 'name': 'Elite', 'product': '', 'version': '',"
 }

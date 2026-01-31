@@ -87,3 +87,72 @@ th {
 .download-link:hover {
   text-decoration: underline;
 }
+
+/* =========================================
+   NAVIGATION TABS (Dashboard / History)
+   ========================================= */
+nav button {
+  background-color: transparent;
+  border: 1px solid #61dafb;
+  color: #61dafb;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+nav button:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+}
+
+/* The active tab gets a filled blue background */
+.nav-active {
+  background-color: #61dafb !important;
+  color: #282c34 !important;
+  font-weight: bold;
+}
+
+/* =========================================
+   BUTTONS (General)
+   ========================================= */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.98); /* Slight click effect */
+}
+
+/* =========================================
+   DANGER BUTTON (Clear History)
+   ========================================= */
+button[style*="background-color: #dc3545"] {
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+button[style*="background-color: #dc3545"]:hover {
+  background-color: #c82333 !important; /* Darker red on hover */
+}
+
+/* =========================================
+   VISUALS BUTTON (Green)
+   ========================================= */
+.download-link {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.download-link[style*="background-color: #28a745"]:hover {
+  background-color: #218838 !important; /* Darker green on hover */
+}

@@ -1,9 +1,18 @@
+# --- Python & Backend Ignored ---
 __pycache__/
+*.pyc
 venv/
-.env
+env/
 *.log
-node_modules/
-dist/
-build/
-.idea/
+scans.db
+backend/scans/reports/*.pdf
+backend/scans/reports/*.json
 .vscode/
+.idea/
+
+# --- React & Frontend Ignored ---
+node_modules/
+build/
+dist/
+.DS_Store
+.env
