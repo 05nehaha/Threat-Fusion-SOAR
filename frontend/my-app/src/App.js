@@ -18,7 +18,7 @@ function App() {
     const completedScans = history.filter(scan => scan.status === 'Completed').length;
     const uptimePercentage = totalScans > 0 ? ((completedScans / totalScans) * 100).toFixed(1) : "100";
 
-    // --- 🧠 ENHANCED THREAT LOGIC (Supports CRITICAL level) ---
+    // --- 🧠 ENHANCED THREAT LOGIC ---
     const getDominantThreat = () => {
         if (completedScans === 0) return "None Detected";
         const counts = history.reduce((acc, scan) => {
@@ -224,7 +224,17 @@ function App() {
                                         <td><span style={{ fontSize: '0.9rem', color: scan.status === 'Completed' ? '#2ecc71' : '#f1c40f' }}>{scan.status}</span></td>
                                         <td style={{ fontSize: '11px', fontFamily: 'monospace', color: '#666' }}>
                                             {scan.file_hash ? (
-                                                <span title={scan.file_hash}>{scan.file_hash.substring(0, 8)}...{scan.file_hash.substring(58)}</span>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                    <span title={scan.file_hash}>
+                                                        {scan.file_hash.substring(0, 8)}...{scan.file_hash.substring(58)}
+                                                    </span>
+                                                    <button 
+                                                        onClick={() => alert(`Full Integrity Hash:\n${scan.file_hash}`)}
+                                                        style={{ background: 'none', border: '1px solid #444', color: '#61dafb', fontSize: '9px', padding: '2px 5px', borderRadius: '3px', cursor: 'pointer' }}
+                                                    >
+                                                        VIEW
+                                                    </button>
+                                                </div>
                                             ) : 'Pending...'}
                                         </td>
                                         <td style={{ textAlign: 'center' }}>
