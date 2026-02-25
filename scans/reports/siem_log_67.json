@@ -1,6 +1,0 @@
-{
-    "event_type": "vulnerability_scan",
-    "risk_level": "HIGH",
-    "threat_indicators_found": 1,
-    "raw_summary": "[{'port': 80, 'name': 'http', 'product': 'Apache Tomcat/Coyote JSP engine', 'version': '1.1', 'state': 'open', 'cpe': None}, {'port': 443, 'name': 'https', 'product': '', 'version': '', 'state': 'open', 'cpe': None}, {'port': 8080, 'name': 'http', 'product': 'Apache Tomcat/Coyote JSP engine', 'version': '1.1', 'state': 'open', 'cpe': None}]- Nikto v2.1.5\n---------------------------------------------------------------------------\n+ Target IP:          54.82.22.214\n+ Target Hostname:    zero.webap"
-}

@@ -1,6 +1,0 @@
-{
-    "event_type": "vulnerability_scan",
-    "risk_level": "HIGH",
-    "threat_indicators_found": 1,
-    "raw_summary": "[]- Nikto v2.1.5\n---------------------------------------------------------------------------\n+ Target IP:          65.61.137.117\n+ Target Hostname:    demo.testfire.net\n+ Target Port:        443\n---------------------------------------------------------------------------\n+ SSL Info:        Subject: /CN=demo.testfire.net\n                   Ciphers: ECDHE-RSA-AES256-GCM-SHA384\n                   Issuer:  /C=GB/ST=Greater Manchester/L=Salford/O=Sectigo Limited/CN=Sectigo RSA Domain Validation Secure"
-}

@@ -1,6 +1,0 @@
-{
-    "event_type": "vulnerability_scan",
-    "risk_level": "HIGH",
-    "threat_indicators_found": 2,
-    "raw_summary": "[{'port': 80, 'name': 'http', 'product': 'gws', 'version': '', 'state': 'open', 'cpe': None}, {'port': 443, 'name': 'https', 'product': 'gws', 'version': '', 'state': 'open', 'cpe': None}]- Nikto v2.1.5\n---------------------------------------------------------------------------\n+ Target IP:          216.58.203.14\n+ Target Hostname:    google.com\n+ Target Port:        80\n+ Start Time:         2026-02-12 12:56:49 (GMT0)\n---------------------------------------------------------------------------\n+ "
-}

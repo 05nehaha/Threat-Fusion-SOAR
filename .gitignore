@@ -1,0 +1,18 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.db
+
+# Node
+node_modules/
+
+# Reports & scans
+scans/
+backend/scans/
+*.pdf
+*.json
+
+# Environment variables
+.env

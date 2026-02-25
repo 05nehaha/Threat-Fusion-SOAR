@@ -1,6 +1,0 @@
-{
-    "event_type": "vulnerability_scan",
-    "risk_level": "HIGH",
-    "threat_indicators_found": 1,
-    "raw_summary": "[{'port': 22, 'name': 'ssh', 'product': 'OpenSSH', 'version': '6.6.1p1 Ubuntu 2ubuntu2.13', 'state': 'open', 'cpe': None}, {'port': 25, 'name': 'smtp', 'product': '', 'version': '', 'state': 'filtered', 'cpe': None}, {'port': 80, 'name': 'http', 'product': 'Apache httpd', 'version': '2.4.7', 'state': 'open', 'cpe': None}, {'port': 135, 'name': 'msrpc', 'product': '', 'version': '', 'state': 'filtered', 'cpe': None}, {'port': 139, 'name': 'netbios-ssn', 'product': '', 'version': '', 'state': 'fil"
-}

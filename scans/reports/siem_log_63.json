@@ -1,6 +1,0 @@
-{
-    "event_type": "vulnerability_scan",
-    "risk_level": "HIGH",
-    "threat_indicators_found": 2,
-    "raw_summary": "[{'port': 80, 'name': 'http', 'product': 'Cloudflare http proxy', 'version': '', 'state': 'open', 'cpe': None}, {'port': 443, 'name': 'http', 'product': 'Cloudflare http proxy', 'version': '', 'state': 'open', 'cpe': None}, {'port': 8080, 'name': 'http', 'product': 'Cloudflare http proxy', 'version': '', 'state': 'open', 'cpe': None}, {'port': 8443, 'name': 'http', 'product': 'Cloudflare http proxy', 'version': '', 'state': 'open', 'cpe': None}]- Nikto v2.1.5\n------------------------------------"
-}
