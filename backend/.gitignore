@@ -16,3 +16,17 @@ build/
 dist/
 .DS_Store
 .env
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Envs
+venv/
+env/
+
+# Databases
+*.db
+
+# Environment variables
+.env
