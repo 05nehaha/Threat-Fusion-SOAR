@@ -1,0 +1,159 @@
+/* Main Dashboard Container */
+.App {
+  text-align: center;
+  background-color: #0d1117; /* GitHub Dark Mode color */
+  min-height: 100vh;
+  color: #c9d1d9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 40px;
+}
+
+/* Header Section */
+h1 {
+  color: #58a6ff;
+  border-bottom: 2px solid #30363d;
+  padding-bottom: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* Form Styling */
+.scan-form {
+  margin: 30px auto;
+  padding: 20px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  max-width: 500px;
+}
+
+input {
+  padding: 12px;
+  width: 70%;
+  border-radius: 4px;
+  border: 1px solid #30363d;
+  background: #0d1117;
+  color: white;
+  margin-right: 10px;
+}
+
+button {
+  padding: 12px 24px;
+  background-color: #238636; /* Security Green */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #2ea043;
+}
+
+/* History Table Styling */
+.history-section {
+  margin-top: 50px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #161b22;
+}
+
+th, td {
+  border: 1px solid #30363d;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #21262d;
+  color: #58a6ff;
+}
+
+/* Status Badges */
+.status-completed { color: #3fb950; font-weight: bold; }
+.status-running { color: #d29922; font-weight: bold; }
+.status-failed { color: #f85149; font-weight: bold; }
+
+.download-link {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.download-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   NAVIGATION TABS (Dashboard / History)
+   ========================================= */
+nav button {
+  background-color: transparent;
+  border: 1px solid #61dafb;
+  color: #61dafb;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+nav button:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+}
+
+/* The active tab gets a filled blue background */
+.nav-active {
+  background-color: #61dafb !important;
+  color: #282c34 !important;
+  font-weight: bold;
+}
+
+/* =========================================
+   BUTTONS (General)
+   ========================================= */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.98); /* Slight click effect */
+}
+
+/* =========================================
+   DANGER BUTTON (Clear History)
+   ========================================= */
+button[style*="background-color: #dc3545"] {
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+button[style*="background-color: #dc3545"]:hover {
+  background-color: #c82333 !important; /* Darker red on hover */
+}
+
+/* =========================================
+   VISUALS BUTTON (Green)
+   ========================================= */
+.download-link {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.download-link[style*="background-color: #28a745"]:hover {
+  background-color: #218838 !important; /* Darker green on hover */
+}
+

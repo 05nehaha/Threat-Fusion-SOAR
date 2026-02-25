@@ -1,0 +1,6 @@
+{
+    "event_type": "vulnerability_scan",
+    "risk_level": "LOW",
+    "threat_indicators_found": 0,
+    "raw_summary": "[]- Nikto v2.1.5\n---------------------------------------------------------------------------\n+ No web server found on 192.168.1.1:80\n---------------------------------------------------------------------------\n+ 0 host(s) tested\n"
+}

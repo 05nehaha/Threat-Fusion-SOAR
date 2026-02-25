@@ -3,9 +3,11 @@ import os
 
 DB_PATH = os.getenv('DB_PATH', 'scans.db')
 
+
+
 def get_db_connection():
-    """Establishes a connection to the SQLite database."""
-    conn = sqlite3.connect(DB_PATH)
+    # The timeout=60 is the magic shield against the 'database is locked' crash
+    conn = sqlite3.connect('scans.db', timeout=60.0)
     conn.row_factory = sqlite3.Row
     return conn
 

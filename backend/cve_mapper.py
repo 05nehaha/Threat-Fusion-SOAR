@@ -1,112 +1,122 @@
 import requests
 import time
+import os
 
 NVD_API = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 
-def fetch_cves_dynamically(product=None, version=None, cpe=None, limit=5):
+def fetch_cves_dynamically(product=None, version=None, cpe=None, limit=5, service_context=""):
     """
-    Fetches CVEs with CVSS Score & Severity.
+    Precision engine with stack-aware filtering. 
+    Prevents 'Groovy' or 'Java' CVEs from appearing on standard C-based stacks.
     """
-    
-    # 1. Clean Inputs
-    product = str(product).split('/')[0].strip().lower() if product else None
-    version = str(version).strip() if version else None
-    cpe = str(cpe).strip() if cpe else None
-    
     results = []
     
-    # --- ATTEMPT 1: Specific Search ---
-    params = {"resultsPerPage": limit}
+    noise = ["httpd", "server", "web", "software", "project"]
+    product_clean = str(product).lower()
+    for word in noise:
+        product_clean = product_clean.replace(word, "").strip()
     
-    if cpe:
-        params["cpeName"] = cpe
-        print(f"   [API] 🔍 Attempt 1 (CPE): {cpe}")
-    elif product and version:
-        params["keywordSearch"] = f"{product} {version}"
-        print(f"   [API] 🔍 Attempt 1 (Specific): {product} {version}")
-    elif product:
-        params["keywordSearch"] = product
-        print(f"   [API] 🔍 Attempt 1 (Product Only): {product}")
-    else:
-        return []
+    version_clean = str(version).split(' ')[0].strip() if version else None
 
-    results = call_nvd_api(params)
-    
-    # --- ATTEMPT 2: Broad Search (Fallback) ---
-    if not results and product and version:
-        print(f"   [API] ⚠️ No results for specific version. Trying broader search: {product}")
-        params = {"keywordSearch": product, "resultsPerPage": limit}
-        results = call_nvd_api(params)
+    # --- ATTEMPT 1: PRECISION SEARCH (CPE) ---
+    if cpe:
+        params = {"cpeName": cpe, "resultsPerPage": limit}
+        results = call_nvd_api(params, service_context)
+        if results: return results
+
+    # --- ATTEMPT 2: EXACT KEYWORD SEARCH ---
+    if product_clean and version_clean:
+        exact_query = f"{product_clean} {version_clean}"
+        params = {
+            "keywordSearch": exact_query, 
+            "keywordExactMatch": "", 
+            "resultsPerPage": limit
+        }
+        results = call_nvd_api(params, service_context)
+        if results: return results
+
+    # --- ATTEMPT 3: LOOSE FALLBACK SEARCH ---
+    if product_clean and version_clean:
+        core_product = product_clean.split(' ')[0].strip() 
+        loose_query = f"{core_product} {version_clean}"
+        params = {
+            "keywordSearch": loose_query,
+            "resultsPerPage": limit
+        }
+        results = call_nvd_api(params, service_context)
+        if results: return results
 
     return results
 
-def call_nvd_api(params):
-    """Helper function to perform the request and parse CVSS."""
-    headers = {
-        'User-Agent': 'VulnerabilityScanner/1.0',
-        'Accept': 'application/json'
-    }
-    
+def call_nvd_api(params, service_context=""):
+    """
+    Handles API request with a Stack-Mismatch Gatekeeper and 
+    adds Forensic Confidence weighting.
+    """
+    api_key = os.getenv("NVD_API_KEY")
+    headers = {'User-Agent': 'VulnerabilityScanner/1.0', 'Accept': 'application/json'}
+    if api_key:
+        headers['apiKey'] = api_key 
+
     try:
-        time.sleep(0.6)
-        response = requests.get(NVD_API, params=params, headers=headers, timeout=10)
+        time.sleep(0.6 if api_key else 6.0)
+        response = requests.get(NVD_API, params=params, headers=headers, timeout=15)
 
         if response.status_code == 200:
             data = response.json()
             items = data.get("vulnerabilities", [])
-            
-            if not items:
-                return []
+            if not items: return []
                 
-            print(f"   [API] ✅ Success. Found {len(items)} CVEs.")
-            
             parsed_results = []
+            context_lower = str(service_context).lower()
+            
             for item in items:
                 cve = item.get("cve", {})
-                cve_id = cve.get("id", "UNKNOWN")
+                desc_raw = next((d["value"] for d in cve.get("descriptions", []) if d["lang"] == "en"), "")
+                desc = desc_raw.lower()
                 
-                # --- NEW: Extract CVSS Score & Severity ---
+                # --- 🛰️ STACK MISMATCH GATEKEEPER ---
+                if any(x in desc for x in ["groovy", "java", "classpath", "tomcat", "coyote"]):
+                    if not any(x in context_lower for x in ["tomcat", "coyote", "java", "jsp", "coyote"]):
+                        continue 
+
+                # --- 🧠 CONTEXTUAL VALIDATION & CONFIDENCE ---
+                # Default is LOW for unverified version-based findings
+                confidence = "LOW"
+                cve_id = cve.get("id", "Unknown ID")
+                
+                # Upgrade to HIGH if the CVE is mentioned in your Nikto scan results
+                if cve_id.lower() in context_lower:
+                    confidence = "HIGH"
+
+                conditional_keywords = ["proxy", "suexec", "cgi", "ldap", "xml-rpc", "openssl"]
+                is_potential = any(key in desc for key in conditional_keywords)
+                
                 metrics = cve.get("metrics", {})
-                score = "N/A"
-                severity = "UNKNOWN"
-
-                # Try CVSS v3.1 (Newest)
-                if "cvssMetricV31" in metrics:
-                    v3 = metrics["cvssMetricV31"][0]["cvssData"]
-                    score = v3.get("baseScore", "N/A")
-                    severity = v3.get("baseSeverity", "UNKNOWN")
-                # Try CVSS v3.0 (Older)
-                elif "cvssMetricV30" in metrics:
-                    v3 = metrics["cvssMetricV30"][0]["cvssData"]
-                    score = v3.get("baseScore", "N/A")
-                    severity = v3.get("baseSeverity", "UNKNOWN")
-                # Fallback to CVSS v2 (Oldest)
-                elif "cvssMetricV2" in metrics:
-                    v2 = metrics["cvssMetricV2"][0]
-                    score = v2["cvssData"].get("baseScore", "N/A")
-                    # V2 puts severity in 'baseSeverity' or we imply it
-                    severity = v2.get("baseSeverity", "MEDIUM") 
-
-                # Get description
-                desc = next(
-                    (d["value"] for d in cve.get("descriptions", []) if d["lang"] == "en"), 
-                    "No description"
-                )
+                score, severity = "N/A", "UNKNOWN"
+                metric_keys = ["cvssMetricV31", "cvssMetricV30", "cvssMetricV2"]
                 
+                for mk in metric_keys:
+                    if mk in metrics:
+                        m_data = metrics[mk][0].get("cvssData", metrics[mk][0])
+                        score = m_data.get("baseScore", "N/A")
+                        severity = m_data.get("baseSeverity", metrics[mk][0].get("baseSeverity", "UNKNOWN")).upper()
+                        break
+
+                if is_potential:
+                    cve_id = f"[POTENTIAL] {cve_id}"
+
+                # --- 🚀 ADDED: CVSS & Confidence Data Points ---
                 parsed_results.append({
                     "cve_id": cve_id,
-                    "description": desc,
+                    "description": desc_raw[:150],
                     "score": score,
-                    "severity": severity
+                    "severity": severity,
+                    "confidence": confidence  # Forensic weighting point
                 })
             return parsed_results
             
-        elif response.status_code == 403:
-            print("   [API] ❌ Error 403: Rate Limited.")
-        else:
-            print(f"   [API] ❌ Error {response.status_code}")
-            
     except Exception as e:
-        print(f"   [API] Connection Error: {e}")
+        print(f"   [API] Connection Exception: {e}")
 
     return []
