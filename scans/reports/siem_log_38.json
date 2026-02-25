@@ -1,0 +1,6 @@
+{
+    "event_type": "vulnerability_scan",
+    "risk_level": "HIGH",
+    "threat_indicators_found": 1,
+    "raw_summary": "[]- Nikto v2.1.5\n---------------------------------------------------------------------------\n+ Target IP:          35.211.122.109\n+ Target Hostname:    toscrape.com\n+ Target Port:        80\n+ Start Time:         2026-01-29 17:14:58 (GMT0)\n---------------------------------------------------------------------------\n+ Server: No banner retrieved\n+ Server leaks inodes via ETags, header found with file /, fields: 0x63e40de9 0xf63 \n+ The anti-clickjacking X-Frame-Options header is not present.\n+ No CG"
+}

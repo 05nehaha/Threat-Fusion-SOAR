@@ -1,0 +1,6 @@
+{
+    "event_type": "vulnerability_scan",
+    "risk_level": "LOW",
+    "threat_indicators_found": 0,
+    "raw_summary": "[{'port': 3000, 'name': 'http', 'product': 'Node.js Express framework', 'version': '', 'state': 'open', 'cpe': None}, {'port': 5000, 'name': 'upnp', 'product': '', 'version': '', 'state': 'open', 'cpe': None}]- Nikto v2.1.5\n---------------------------------------------------------------------------\n+ No web server found on localhost:80\n---------------------------------------------------------------------------\n+ 0 host(s) tested\n"
+}
