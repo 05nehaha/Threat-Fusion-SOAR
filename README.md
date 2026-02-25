@@ -1,62 +1,149 @@
-# 🛡️ Threat-Fusion SOAR
-**Automated Vulnerability Assessment & Reporting Engine**
 
-## 🚀 Overview
-Threat-Fusion SOAR is a comprehensive security tool designed to automate vulnerability detection. It integrates **Nmap (Network Scanning)** and **Nikto (Web Scanning)** into a unified dashboard with real-time PDF reporting and Visual Analytics.
+# Threat-Fusion SOAR
 
-## ⚙️ Prerequisites (READ FIRST)
-Since this tool relies on Linux-native scanners, **Windows users must use WSL (Windows Subsystem for Linux)**.
+Automated Vulnerability Scanner & Reporting Tool.
 
-### 1. System Requirements
-* **OS:** Ubuntu (via WSL on Windows) or Native Linux/macOS.
-* **Python:** v3.8+
-* **Node.js:** v14+
+This project performs automated vulnerability scanning, CVE mapping, CVSS scoring, and generates detailed PDF reports using NVD API integration.
 
-### 2. Install External Tools (Crucial!)
-You must install the actual scanner software inside your Ubuntu terminal before running the python code:
-```bash
-sudo apt update
-sudo apt install nmap nikto -y
+---
 
-📦 Installation Guide
-Step 1: Clone the Repository
-Bash
+## Features
+
+- Automated vulnerability scanning
+- CVE extraction and mapping
+- CVSS-based severity scoring
+- PDF and visual report generation
+- Backend (Flask) + Frontend (React)
+- Docker support
+
+---
+
+## Tech Stack
+
+Backend:
+- Python
+- Flask
+- SQLite
+- NVD API
+
+Frontend:
+- React.js
+- Node.js
+
+---
+
+## Prerequisites
+
+Make sure you have installed:
+
+- Python 3.10+
+- Node.js (v16+ recommended)
+- Git
+
+---
+
+## Setup Instructions
+
+### 1. Clone the Repository
+
+```
+
 git clone [https://github.com/05nehaha/Threat-Fusion-SOAR.git](https://github.com/05nehaha/Threat-Fusion-SOAR.git)
 cd Threat-Fusion-SOAR
-Step 2: Backend Setup (Python)
-Open a terminal in the project root:
 
-Bash
-cd backend
-# Install Python dependencies
+```
+
+---
+
+### 2. Setup Environment Variables
+
+Create a `.env` file in the root directory:
+
+```
+
+cp .env.example .env
+
+```
+
+Open `.env` and add your NVD API key:
+
+```
+
+NVD_API_KEY=your_actual_key_here
+
+```
+
+---
+
+### 3. Setup Backend
+
+```
+
+python -m venv venv
+source venv/bin/activate   # On Windows use: venv\Scripts\activate
+
 pip install -r requirements.txt
+python backend/app.py
 
-# Run the Server
-python3 app.py
-You should see: Running on http://127.0.0.1:5000
+```
 
-Step 3: Frontend Setup (React)
-Open a new terminal window:
+Backend will run on:
+```
 
-Bash
+[http://localhost:5000](http://localhost:5000)
+
+```
+
+---
+
+### 4. Setup Frontend
+
+Open a new terminal:
+
+```
+
 cd frontend/my-app
-# Install Node dependencies
 npm install
-
-# Start the Dashboard
 npm start
-The app will open at http://localhost:3000
 
-🛠️ Usage
-Dashboard: Navigate to the "Dashboard" tab to see the scan form.
+```
 
-Launch Scan: Enter a target (e.g., scanme.nmap.org) and click Launch.
+Frontend will run on:
+```
 
-View Results: Wait for status "Completed", then download the PDF Report or view Visual Analytics.
+[http://localhost:3000](http://localhost:3000)
 
-History: Use the "Full History" tab to view past logs or clear the database.
+```
 
-⚠️ Troubleshooting
-"No Web Server Found": Ensure you are scanning a target visible to WSL. Try scanning scanme.nmap.org.
+---
 
-Database Error: If scans.db causes issues, simply delete the file. The backend will recreate a fresh one automatically on startup.
+## Project Structure
+
+```
+
+backend/
+frontend/
+.env.example
+Dockerfile
+requirements.txt
+
+```
+⚙️ Platform Notes
+
+If using:
+
+WSL / Linux / Mac:
+
+source venv/bin/activate
+
+
+
+🚨 ALSO ADD THIS (To Avoid Most Common Error)
+
+Very important for Node:
+
+Add this under Frontend section:
+
+If you get dependency issues, run:
+
+npm install --legacy-peer-deps
